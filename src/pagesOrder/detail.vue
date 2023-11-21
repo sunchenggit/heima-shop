@@ -150,7 +150,7 @@ const onOrderDelete = () => {
       if (confirm) {
         await deleteMemberOrderAPI({ ids: [query.id] })
         // 跳转到订单列表页面
-        uni.redirectTo({ url: '/pagesOrder/list' })
+        uni.redirectTo({ url: '/pagesOrder/list/list' })
       }
     },
   })
