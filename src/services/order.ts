@@ -31,5 +31,3 @@ export const postMemberOrderAPI = (data: OrderCreateParams) => {
     data,
   })
 }
-
-git config --global http.proxy 58.242.130.117:17004
