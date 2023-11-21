@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import { computed, ref, defineProps } from 'vue'
 import { onLoad } from '@dcloudio/uni-app'
-import { getmemberorderPreAPI, getMemberOrderPreNowAPI, postMemberOrderAPI } from '@/services/order'
+import {
+  getmemberorderPreAPI,
+  getMemberOrderPreNowAPI,
+  postMemberOrderAPI,
+  getMemberOrderRepurchaseByIdAPI,
+} from '@/services/order'
 import type { OrderPreResult } from '@/types/order'
 import { useAddressStore } from '@/stores/modules/address'
 
@@ -27,12 +32,16 @@ const onChangeDelivery: UniHelper.SelectorPickerOnChange = (ev) => {
 const query = defineProps<{
   skuId?: string
   count?: string
+  orderId?: string
 }>()
 
 const orderPreData = ref<OrderPreResult>()
 const getMemberOrderPreData = async () => {
   if (query.skuId && query.count) {
     const res = await getMemberOrderPreNowAPI({ skuId: query.skuId, count: query.count })
+    orderPreData.value = res.result
+  } else if (query.orderId) {
+    const res = await getMemberOrderRepurchaseByIdAPI(query.orderId)
     orderPreData.value = res.result
   } else {
     const res = await getmemberorderPreAPI()
